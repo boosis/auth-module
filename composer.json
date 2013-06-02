@@ -1,0 +1,17 @@
+{
+    "name": "billyildirim/auth-module",
+    "description": "Auth module for zf2",
+    "type": "library",
+    "keywords": [
+        "zf2"
+    ],
+    "homepage": "https://bitbucket.org/byildirim/auth-module",
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}

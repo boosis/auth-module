@@ -1,0 +1,40 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: bill
+ * Date: 31/03/2013
+ * Time: 21:31
+ *
+ */
+
+return array(
+    'service_manager' => array(
+        'factories' => array(
+            'acl_config' => function ($sm) {
+                return array(
+                    'acl' => array(
+                        'roles' => array(
+                            'guest' => null,
+                            'member' => 'guest',
+                            'admin' => 'member'
+                        ),
+                        'resources' => array(
+                            'allow' => array(
+                                '\Application\Controller\Index' => array(
+                                    'guest' => array('*'),
+                                ),
+                                '\Application\Controller\Error' => array(
+                                    'guest' => array('*')
+                                ),
+                                '\Auth\Controller\Auth' => array(
+                                    'guest' => array('*')
+                                )
+                            ),
+                            'deny' => array()
+                        )
+                    ),
+                );
+            }
+        )
+    )
+);

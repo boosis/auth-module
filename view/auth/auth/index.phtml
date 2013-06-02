@@ -1,0 +1,16 @@
+<h1>Login</h1>
+<?php
+if ($this->messages){
+    echo '<ul>';
+    foreach($this->messages as $message)
+    {
+        echo '<li>'.$message.'</li>';
+    }
+    echo '</ul>';
+}
+?>
+<form action="<?php echo $this->url('login'); ?>" method="POST">
+    <input type="text" name="username" placeholder="username">
+    <input type="password" name="password" placeholder="password">
+    <input type="submit">
+</form>
