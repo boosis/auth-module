@@ -72,6 +72,8 @@ class Module
                     $response->sendHeaders();
                     exit ();
                 }
+            } else {
+                throw new ResourceNotFound($resource);
             }
         }
     }
