@@ -25,6 +25,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Auth\Controller\Auth' => 'Auth\Controller\AuthController',
+            'Auth\Controller\Error' => 'Auth\Controller\ErrorController',
         ),
     ),
     'view_manager' => array(
@@ -38,15 +39,23 @@ return array(
         )
     ),
     'service_manager' => array(
+        'aliases' => array(
+            'AuthAdapter' => 'Auth\Adapter\Mongo',
+            'AuthService' => 'AuthService',
+        ),
         'factories' => array(
-            'AuthService' => function ($sm) {
+            'Auth\Adapter\Mongo' => function ($sm) {
                 $dbAdapter = $sm->get('mongodb');
-                $dbTableAuthAdapter = new \Auth\Adapter\Mongo($dbAdapter, 'users', 'username', 'password', null);
+                $authAdapter = new \Auth\Adapter\Mongo($dbAdapter, 'users', 'username', 'password', null);
+                return $authAdapter;
+            },
+            'AuthService' => function ($sm) {
+                $authAdapter = $sm->get('AuthAdapter');
                 $authService = new \Zend\Authentication\AuthenticationService();
-                $authService->setAdapter($dbTableAuthAdapter);
+                $authService->setAdapter($authAdapter);
                 $authService->setStorage(new \Zend\Authentication\Storage\Session('Auth'));
                 return $authService;
             },
-        )
+        ),
     ),
 );
