@@ -18,7 +18,7 @@ class AuthController extends AbstractActionController
     public function getAuthService()
     {
         if (! $this->authservice) {
-            $this->authservice = $this->getServiceLocator()->get('AuthService');
+            $this->authservice = $this->getServiceLocator()->get('BoosisAuthService');
         }
         return $this->authservice;
     }
@@ -26,10 +26,6 @@ class AuthController extends AbstractActionController
     {
         $messages = array();
         $session = new Container('APP');
-        $redirect = $this->params()->fromQuery('_redirect');
-        if ($redirect) {
-            $session->_redirect = $redirect;
-        }
         if ($this->getRequest()->isPost()) {
             $username = $this->getRequest()->getPost()->username;
             $password = $this->getRequest()->getPost()->password;
@@ -54,5 +50,9 @@ class AuthController extends AbstractActionController
         return new ViewModel(array(
             'messages' => $messages
         ));
+    }
+    public function noauthAction()
+    {
+        return new ViewModel();
     }
 }

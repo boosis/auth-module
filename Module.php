@@ -15,6 +15,7 @@ use Zend\Mvc\Router\RouteMatch;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\GenericResource;
 use Zend\Permissions\Acl\Role\GenericRole;
+use Zend\Session\Container;
 
 class Module
 {
@@ -48,7 +49,6 @@ class Module
             if (substr($resource, 0, 1) !== '\\') {
                 $resource = '\\' . $resource;
             }
-            /** @var $authService \Zend\Authentication\AuthenticationService */
             $authService = $sm->get('AuthService');
             if ($authService->hasIdentity()) {
                 $role = $authService->getIdentity()['Role'];
@@ -57,11 +57,12 @@ class Module
             }
             if (!$acl->isAllowed($role, $resource, $action)) {
                 if ($authService->hasIdentity()) {
-                    $url = $e->getRouter()->assemble(array("controller" => 'Application\Controller\Error'), array('name' => 'notauth'));
+                    $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'noauth'));
                 } else {
                     $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'login'));
                 }
-                $url = $url . '?_redirect=' . urlencode('http://www.google.com');
+                $session = new Container('APP');
+                $session->_redirect = 'http://www.google.com';
                 $response = $e->getResponse();
                 $response->setHeaders($response->getHeaders()->addHeaderLine('Location', $url));
                 $response->setStatusCode(302);

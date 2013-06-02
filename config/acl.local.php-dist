@@ -28,7 +28,10 @@ return array(
                                 ),
                                 '\Auth\Controller\Auth' => array(
                                     'guest' => array('*')
-                                )
+                                ),
+                                '\Auth\Controller\Error' => array(
+                                    'guest' => array('*')
+                                ),
                             ),
                             'deny' => array()
                         )
