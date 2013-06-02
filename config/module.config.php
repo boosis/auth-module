@@ -49,7 +49,7 @@ return array(
                 $authAdapter = new \Auth\Adapter\Mongo($dbAdapter, 'users', 'username', 'password', null);
                 return $authAdapter;
             },
-            'BoosisAuthService' => function ($sm) {
+            'AuthService' => function ($sm) {
                 $authAdapter = $sm->get('BoosisAuthAdapter');
                 $authService = new \Zend\Authentication\AuthenticationService();
                 $authService->setAdapter($authAdapter);
