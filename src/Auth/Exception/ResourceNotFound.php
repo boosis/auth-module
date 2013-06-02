@@ -6,7 +6,7 @@
  * Time: 22:45
  * 
  */
-namespace Auth; 
+namespace Auth\Exception;
 class ResourceNotFound extends \Exception
 {
 

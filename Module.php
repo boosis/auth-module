@@ -9,6 +9,7 @@
 
 namespace Auth;
 
+use Auth\Exception\ResourceNotFound;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
@@ -36,9 +37,7 @@ class Module
         $application = $e->getApplication();
         $sm = $application->getServiceManager();
 
-        /** @var \Zend\Mvc\Router\Http\TreeRouteStack $router */
         $router = $sm->get('router');
-        /** @var \Zend\Http\PhpEnvironment\Request $request */
         $request = $sm->get('request');
         /** @var $matchedRoute RouteMatch */
         $matchedRoute = $router->match($request);
