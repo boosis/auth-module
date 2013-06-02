@@ -36,9 +36,10 @@ class Module
         $application = $e->getApplication();
         $sm = $application->getServiceManager();
 
+        /** @var \Zend\Mvc\Router\Http\TreeRouteStack $router */
         $router = $sm->get('router');
+        /** @var \Zend\Http\PhpEnvironment\Request $request */
         $request = $sm->get('request');
-
         /** @var $matchedRoute RouteMatch */
         $matchedRoute = $router->match($request);
         if ($matchedRoute) {
@@ -63,7 +64,8 @@ class Module
                         $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'login'));
                     }
                     $session = new Container('APP');
-                    $session->_redirect = 'http://www.google.com';
+                    $requestedUri = $request->getRequestUri();
+                    $session->_redirect = $requestedUri;
                     $response = $e->getResponse();
                     $response->setHeaders($response->getHeaders()->addHeaderLine('Location', $url));
                     $response->setStatusCode(302);
