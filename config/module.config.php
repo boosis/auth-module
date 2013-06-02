@@ -20,12 +20,21 @@ return array(
                     ),
                 ),
             ),
+            'noauth' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/noauth',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Auth',
+                        'action' => 'noauth',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
             'Auth\Controller\Auth' => 'Auth\Controller\AuthController',
-            'Auth\Controller\Error' => 'Auth\Controller\ErrorController',
         ),
     ),
     'view_manager' => array(
