@@ -55,19 +55,21 @@ class Module
             } else {
                 $role = 'guest';
             }
-            if (!$acl->isAllowed($role, $resource, $action)) {
-                if ($authService->hasIdentity()) {
-                    $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'noauth'));
-                } else {
-                    $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'login'));
+            if ($acl->hasResource($resource)) {
+                if (!$acl->isAllowed($role, $resource, $action)) {
+                    if ($authService->hasIdentity()) {
+                        $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'noauth'));
+                    } else {
+                        $url = $e->getRouter()->assemble(array("controller" => 'Auth\Controller\Auth'), array('name' => 'login'));
+                    }
+                    $session = new Container('APP');
+                    $session->_redirect = 'http://www.google.com';
+                    $response = $e->getResponse();
+                    $response->setHeaders($response->getHeaders()->addHeaderLine('Location', $url));
+                    $response->setStatusCode(302);
+                    $response->sendHeaders();
+                    exit ();
                 }
-                $session = new Container('APP');
-                $session->_redirect = 'http://www.google.com';
-                $response = $e->getResponse();
-                $response->setHeaders($response->getHeaders()->addHeaderLine('Location', $url));
-                $response->setStatusCode(302);
-                $response->sendHeaders();
-                exit ();
             }
         }
     }
