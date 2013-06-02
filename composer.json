@@ -1,11 +1,18 @@
 {
-    "name": "billyildirim/auth-module",
-    "description": "Auth module for zf2",
+    "name": "boosis/auth-module",
+    "description": "Auth module for ZF2",
     "type": "library",
     "keywords": [
         "zf2"
     ],
-    "homepage": "https://bitbucket.org/byildirim/auth-module",
+    "homepage": "https://github.com/boosis/auth-module",
+    "authors": [
+        {
+            "name": "Bill Yildirim",
+            "email": "bill@boosis.com",
+            "homepage": "http://boosis.com/"
+        }
+    ],
     "require": {
         "php": ">=5.3"
     },
