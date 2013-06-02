@@ -40,8 +40,8 @@ return array(
     ),
     'service_manager' => array(
         'aliases' => array(
-            'AuthAdapter' => 'Auth\Adapter\Mongo',
-            'AuthService' => 'AuthService',
+            'BoosisAuthAdapter' => 'Auth\Adapter\Mongo',
+            'BoosisAuthService' => 'AuthService',
         ),
         'factories' => array(
             'Auth\Adapter\Mongo' => function ($sm) {
@@ -49,8 +49,8 @@ return array(
                 $authAdapter = new \Auth\Adapter\Mongo($dbAdapter, 'users', 'username', 'password', null);
                 return $authAdapter;
             },
-            'AuthService' => function ($sm) {
-                $authAdapter = $sm->get('AuthAdapter');
+            'BoosisAuthService' => function ($sm) {
+                $authAdapter = $sm->get('BoosisAuthAdapter');
                 $authService = new \Zend\Authentication\AuthenticationService();
                 $authService->setAdapter($authAdapter);
                 $authService->setStorage(new \Zend\Authentication\Storage\Session('Auth'));
