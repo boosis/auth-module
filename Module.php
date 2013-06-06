@@ -51,7 +51,7 @@ class Module
             }
             $authService = $sm->get('AuthService');
             if ($authService->hasIdentity()) {
-                $role = $authService->getIdentity()['role'];
+                $role = $authService->getIdentity()->role;
             } else {
                 $role = 'guest';
             }
